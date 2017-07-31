@@ -7,14 +7,12 @@
 		include 'views/home.php';
 	}
 	*/
-
+	$rutat = "/../../../templates/gubytheme/";
 	class MvcController{
-
 
 		public function pagina(){
 			include "views/template.php";
 		}
-
 		public function enlacesPaginasController(){
 			if(isset( $_GET['modulo'])){
 				$modulo= $_GET['modulo'];
