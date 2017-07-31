@@ -1,0 +1,41 @@
+
+/*
+Autor: Neftali Acosta
+Versión 1.0
+URL: https://neftaliacosta.com
+Whatsapp: +521 2291391667;
+*/
+
+.navbar-inverse {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #000000;
+}
+.navbar-right{
+	padding-top: 10px;
+}
+
+
+.footer{
+	background-image: url('../img/footer.png');
+	padding-top: 30px;
+	height: 150px;
+	margin: 0 auto;
+	text-align: center;;
+	color: #000000;
+}
+
+.loginbtn{
+	margin-top: 8px;
+}
+
+.input-group, .loginbtn{
+	margin-top: 10px;
+}
+
+.carousel {
+    height: 80%!important;
+}
+/*Login*/
