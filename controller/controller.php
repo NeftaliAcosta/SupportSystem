@@ -1,13 +1,8 @@
 <?php 
-	/*Validación de sesion en cache
-	if(isset($_SESSION["sesion"])){
-		header("location:index.php");
-		exit();	
-	}else{
-		include 'views/home.php';
-	}
-	*/
-	$rutat = "/../../../templates/gubytheme/";
+	
+
+	$title = "Sistema de Soporte";
+	$templates = "templates/gubytheme/";
 	class MvcController{
 
 		public function pagina(){

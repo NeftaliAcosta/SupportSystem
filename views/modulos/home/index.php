@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 <meta charset="utf-8">
@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistema de Soporte</title>
+    <title><?php echo $GLOBALS["title"] ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $rutat ?>style.css" rel="stylesheet">
+    <link href="<?php echo $GLOBALS["templates"] ?>css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -27,9 +27,26 @@
 </head>
 
 <body>
-<?php include "/../../../templates/gubytheme/head.php";?>
-<?php include "/../../../templates/gubytheme/home.php";?>
-<?php include "/../../../templates/gubytheme/footer.php";?>
+    <?php 
+    include "/../../../templates/gubytheme/head.php";
+    include "/../../../templates/gubytheme/home.php";
+    include "/../../../templates/gubytheme/footer.php";
+    ?>
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+    <script src="js/myjs.js"></script>
+    <script src="<?php echo $GLOBALS["templates"] ?>/js/js.js"></script>
+
 </body>
 
 </html>
