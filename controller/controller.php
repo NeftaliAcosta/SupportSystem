@@ -4,9 +4,10 @@
 
 	$title = "Sistema de Soporte";
 	$templates = "templates/".TEMA."/";
-	$token = urlencode(SERIAL);
+	$token = urlencode(TOKEN);
+	$myserial = SERIAL;
 	#$dominio = $_SERVER['SERVER_NAME'];
-	$dominio = "elsazondeedith.com";
+	$dominio = "gubynetwork.com";
 
 	class MvcController{
 
@@ -17,10 +18,23 @@
 			$url ="https://gubynetwork.com/serversoporte.php?token=".$GLOBALS["token"]."&dom=".$GLOBALS["dominio"];
 			#echo $url;
 			$json = file_get_contents($url);
-			$array = json_decode($json,true);
-			if($array==0){
-				echo "<h1>Error al validar la licencia, por favor contacte a su proveedor. </h1>";
+			$respuesta = json_decode($json,true);
+			if($respuesta["estatus"]==1){
+				if($respuesta["servicio"]==$GLOBALS["myserial"]){
+
+					echo "Licencia válida";
+				}else{
+					echo $respuesta["servicio"]."<br>";
+					echo $GLOBALS["myserial"]."<br>";
+					echo "Licencia corrupta";
+				}
+			}else{
+				echo "<br>";
+				echo "<h1>".$respuesta['mensaje']."</h1>";
 			}
+
+
+
 
 			if(isset( $_GET['modulo'])){
 				$modulo= $_GET['modulo'];

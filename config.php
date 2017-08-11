@@ -5,11 +5,11 @@
 		Conmutador: 01 5541616859
 		Correo: contacto@gubynetwork.com
 	*/
+		define('SERIAL','lfbrkASPNI56ZGDynhZc6i0zuNAIa7wKV7w6/+8WDfveRxLsM8nv2HKN6yIibACuhqMqaTgUKZ57YSQnXyeyl+/1r62BLN4RqHCfuBbStBVxgJmS4wJIH/pVaNcH/yuRx5VfjX/DeRSaQlK2A/nitA7tnU3S7Gbf8D/2KOqIAKo=');
 
+		define('TEMA','gubytheme');
 
-		define('SERIAL','RK6RBZXAt2MgeJetztqi0ENwj6PtXSrFVyDp8yoaiBhi+ivR11DezWkzulBj0VJo2ikqlEvcO3e60A1iTdkEq4WBIRX6oC9IwwmcoaKTAXNj0ETM8//XjviJ7Lzc97nfg6o9yP9d8tT58JI1VzwBHFFvaC+7xTYNPkDI0NUJMu8=');
-
-		define('TEMA','ferrustheme');
+		define('TOKEN', 'Hnuzr/hRWaETKi3C/c6PAbcVa/yQSytUWEEEdtJyiY4=');
 
 
  ?>
