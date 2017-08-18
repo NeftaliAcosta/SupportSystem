@@ -11,5 +11,9 @@
 
 		define('TOKEN', 'Hnuzr/hRWaETKi3C/c6PAbcVa/yQSytUWEEEdtJyiY4=');
 
-
+		/*Configuracion de conexion a la BD*/
+		define('DB_USER','root');
+		define('DB_NAME','soporte');
+		define('DB_PASS','');
+		define('DB_HOST','localhost');
  ?>

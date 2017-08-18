@@ -1,6 +1,6 @@
 <?php 
 	
-	include "/../config.php";
+	require_once('/../config.php');
 
 	$title = "Sistema de Soporte";
 	$templates = "templates/".TEMA."/";
