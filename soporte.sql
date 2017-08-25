@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-08-2017 a las 00:40:25
+-- Tiempo de generación: 26-08-2017 a las 00:57:25
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -123,6 +123,28 @@ INSERT INTO `msjtickets` (`id`, `idTicket`, `idUsuario`, `Mensaje`, `fecha`, `cl
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `post`
+--
+
+CREATE TABLE `post` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `contenido` varchar(700) COLLATE utf8_spanish_ci NOT NULL,
+  `tags` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `contador` int(11) NOT NULL DEFAULT '0',
+  `idautor` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `post`
+--
+
+INSERT INTO `post` (`id`, `titulo`, `contenido`, `tags`, `contador`, `idautor`) VALUES
+(2, 'Artículo de ejemplo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, ', 'test, demo', 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `prioridadticket`
 --
 
@@ -219,6 +241,13 @@ ALTER TABLE `msjtickets`
   ADD KEY `FK_msjtickets_usuarios` (`idUsuario`);
 
 --
+-- Indices de la tabla `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_post_usuarios` (`idautor`);
+
+--
 -- Indices de la tabla `prioridadticket`
 --
 ALTER TABLE `prioridadticket`
@@ -260,6 +289,11 @@ ALTER TABLE `departamentos`
 ALTER TABLE `estados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT de la tabla `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `prioridadticket`
 --
 ALTER TABLE `prioridadticket`
@@ -290,6 +324,12 @@ ALTER TABLE `canales`
 ALTER TABLE `msjtickets`
   ADD CONSTRAINT `FK_msjtickets_tickets` FOREIGN KEY (`idTicket`) REFERENCES `tickets` (`idTicket`),
   ADD CONSTRAINT `FK_msjtickets_usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `FK_post_usuarios` FOREIGN KEY (`idautor`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `tickets`
