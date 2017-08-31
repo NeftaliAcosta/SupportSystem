@@ -24,4 +24,10 @@ $( document ).ready(function() {
     	});
     	return false;
 	});
+
+     $('.search button').click(function() {
+        var busqueda = $('.search input').val();
+         $(".search a").attr("href", "index.php?modulo=blog&s="+ busqueda);
+     });
+
 });

@@ -1,6 +1,6 @@
 <?php
 
- require_once('/../config.php');
+require_once('/../config.php');
 $dbus = DB_USER;
 $bdname = DB_NAME;
 $bdpw= DB_PASS;

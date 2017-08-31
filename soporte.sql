@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-08-2017 a las 00:57:25
+-- Tiempo de generación: 31-08-2017 a las 02:15:36
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -41,6 +41,30 @@ INSERT INTO `canales` (`id`, `canal`, `idDepartamento`, `estatus`) VALUES
 (2, 'Sistema de Ticket', 1, 1),
 (3, 'Sistema de Ticket', 2, 1),
 (5, 'SMS', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `categoria` varchar(20) COLLATE utf8_spanish_ci NOT NULL DEFAULT '0',
+  `comentarios` varchar(100) COLLATE utf8_spanish_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `categoria`, `comentarios`) VALUES
+(1, 'Tips', '0'),
+(2, 'Noticias', '0'),
+(3, 'Anuncios', '0'),
+(4, 'Ayuda', '0'),
+(5, 'Consejos', '0'),
+(6, 'Tutoriales', '0');
 
 -- --------------------------------------------------------
 
@@ -129,8 +153,11 @@ INSERT INTO `msjtickets` (`id`, `idTicket`, `idUsuario`, `Mensaje`, `fecha`, `cl
 CREATE TABLE `post` (
   `id` int(11) NOT NULL,
   `titulo` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `contenido` varchar(700) COLLATE utf8_spanish_ci NOT NULL,
-  `tags` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `extracto` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `contenido` varchar(7000) COLLATE utf8_spanish_ci NOT NULL,
+  `categorias` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `imagen` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `contador` int(11) NOT NULL DEFAULT '0',
   `idautor` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -139,8 +166,13 @@ CREATE TABLE `post` (
 -- Volcado de datos para la tabla `post`
 --
 
-INSERT INTO `post` (`id`, `titulo`, `contenido`, `tags`, `contador`, `idautor`) VALUES
-(2, 'Artículo de ejemplo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, ', 'test, demo', 0, 1);
+INSERT INTO `post` (`id`, `titulo`, `extracto`, `contenido`, `categorias`, `fecha`, `imagen`, `contador`, `idautor`) VALUES
+(2, 'Artículo de ejemplo', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br><br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi ni', '1,2,3,5', '2017-08-29', 'post1.png', 0, 1),
+(5, 'Lo mejor de ser programador web experimentado', 'Durante el paso de los años el desarrollador web se ha visto en vuelto en mitos y leyendas urbanas acerca de su manera de parender, pero en este post revelaremos todas ellas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque iaculis lectus sit amet tellus semper posuere. Sed eleifend maximus pharetra. Mauris interdum diam purus, eget pulvinar dolor aliquam ut. In eleifend odio arcu, et vulputate est blandit et. Fusce malesuada in augue eget vulputate. Maecenas eget sodales odio. Nulla pulvinar purus eget lorem ornare feugiat. Nullam et ex sed sem imperdiet hendrerit eu et ipsum. Etiam feugiat semper magna, at lacinia ex sollicitudin eu. Nam gravida diam libero, eget porta mauris posuere non. Cras nisi dui, ornare nec enim vel, lacinia elementum urna. Mauris nec libero ut est rhoncus iaculis.', '4,5', '2017-08-29', 'post2.jpg', 0, 1),
+(6, 'Consejos para llevar a cabo una correcta gestión dentro del sistema', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque iaculis lectus sit amet tellus semper posuere. Sed eleifend maximus pharetra. Mauris interdum diam purus, eget pulvinar dolor aliquam ut. In eleifend odio arcu, et vulputate est blandit et. Fusce malesuada in augue eget vulputate. Maecenas eget sodales odio. Nulla pulvinar purus eget lorem ornare feugiat. Nullam et ex sed sem imperdiet hendrerit eu et ipsum. Etiam feugiat semper magna, at lacinia ex sollicitudin eu. Nam gravida diam libero, eget porta mauris posuere non. Cras nisi dui, ornare nec enim vel, lacinia elementum urna. Mauris nec libero ut est rhoncus iaculis.', '2,4', '2017-09-29', 'post3.jpg', 0, 1),
+(7, 'Beneficios de ser un programador freelancer: Ejemplo de emprendedor', 'Durante el paso de los años el desarrollador web se ha visto en vuelto en mitos y leyendas urbanas acerca de su manera de parender, pero en este post revelaremos todas ellas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br><br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi ni\r\n\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br><br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. \r\nVestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. <br>\r\nNunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Morbi nibh diam, luctus non elit non, tincidunt egestas enim. <br>Donec convallis cursus leo, sit amet congue elit viverra sit amet. Etiam interdum nisl quis erat lacinia vestibulum. Fusce in eros sem. Praesent consequat convallis elementum. Maecenas id placerat justo, id elementum augue. Cras venenatis mollis lectus eget venenatis. Vestibulum enim sem, <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. Vestibulum nunc enim, varius quis eleifend at, scelerisque ut justo. Duis aliquam metus eu ligula sodales, eget consectetur nisl feugiat. Nunc convallis turpis vel dui sodales lacinia. Sed consequat sit amet nunc eget finibus. Mo', '3,5', '2017-04-30', 'post4.jpg', 0, 1),
+(10, 'Ejemplos de programadores exitos gracias a las herramientas  experimentadas de d', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a quam magna. Donec ut quam a diam facilisis ultrices. ', '1,6', '2017-08-25', 'post5.jpg', 0, 1),
+(12, 'Como se un programador activo: ejemplo de emprendedurismo', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará <br><br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará<br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará<br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará<br><br>\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis continuará', '1,4,6', '2017-08-30', 'post6.jpg', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -222,6 +254,12 @@ ALTER TABLE `canales`
   ADD KEY `FK_canales_departamentos` (`idDepartamento`);
 
 --
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
@@ -279,6 +317,11 @@ ALTER TABLE `usuarios`
 ALTER TABLE `canales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
@@ -292,7 +335,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `prioridadticket`
 --

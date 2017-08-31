@@ -6,7 +6,6 @@
 			}else{
 				$module = "views/home.php";
 			}
-
 			return $module;
 		}
 	}
