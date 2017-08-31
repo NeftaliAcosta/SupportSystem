@@ -4,7 +4,7 @@
 			if($enlaces== "home" || $enlaces == "panel" || $enlaces == "blog" || $enlaces == "wiki"){
 				$module =  "views/modulos/".$enlaces."/index.php";
 			}else{
-				$module = "views/home.php";
+				$module = "views/modulos/home/index.php";
 			}
 			return $module;
 		}

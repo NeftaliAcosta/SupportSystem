@@ -68,7 +68,7 @@
 			$stmt = Conexion::conectar()->prepare("select id,categoria from categorias");
 			$respuesta = $stmt->execute();
 			$respuesta = $stmt->fetchAll();
-			
+
 			return $respuesta;
 		}
 
@@ -77,6 +77,38 @@
 			$respuesta = $stmt->execute();
 			$respuesta = $stmt->fetchAll();
 			return $respuesta;
+		}
+
+		public function valcat($id){
+			$stmt = Conexion::conectar()->prepare('select * from categorias where id=:id');
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetch();
+			return $respuesta;
+		}
+
+		public function getcatbyid($id){
+			/*Obtener todos los pots*/
+			$stmt = Conexion::conectar()->prepare('select id, categorias from post');
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetchAll();
+			/*Filtrar los post que tienen la categoria que se recibe*/
+			foreach ($respuesta as $key => $value) {
+				$comparacion = strpos($value['categorias'], $id);
+				if($comparacion !== FALSE){
+				    $posts [] = array("postid" =>$value['id']);
+				}
+			}
+			/*Obtener todo el contenido de los posts y generar un array de ellos*/
+			foreach ($posts as $key => $value) {
+				$stmt = Conexion::conectar()->prepare('select * from post where id=:id');
+				$stmt->bindParam(":id", $value['postid'], PDO::PARAM_INT);
+				$respuesta = $stmt->execute();
+				$respuesta = $stmt->fetch();
+				 $pcontent [] = array($respuesta);
+
+			}
+			return $pcontent;
 		}
 	}
  ?>

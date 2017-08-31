@@ -15,8 +15,8 @@
 				$post = Datos::getpostbyid($idpost);
 				if($post>1){
 					echo '<h1 class="titulo-post">'.$post['titulo'].'</h1>';
-					echo '<hr><p><i class="fa fa-clock-o"></i> Publicado el: '.$post['fecha'].'</p><hr>';
-					echo '<img class="img-responsive" src="img/medios/'.$post['imagen'].'" alt=""><hr>';
+					echo '<hr><p><i class="fa fa-clock-o"></i> Publicado el: '.$post['fecha'].' Por: <b>Neftali Acosta</b></p><hr>';
+					echo '<img class="img-responsive" data-src="img/medios/'.$post['imagen'].'" alt=""><hr>';
 					echo '<p>'.$post['contenido'].'</p>';
 				}else{
 					echo "¡Ups! Este post no existe...";
@@ -29,8 +29,8 @@
 					echo ' <h2><a href="index.php?modulo=blog&ver='.$item['id'].'">'.$item['titulo'].'</a></h2>';
 					echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item['fecha'].' </p>';
 					echo '
-						<a href="blog-post.html">
-	                    	<img class="img-responsive img-hover" src="img/medios/'.$item['imagen'].'" alt="">
+						<a href="#">
+	                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item['imagen'].'" alt="">
 	               		</a><br>
 						';
 					echo '<p>'.$item['extracto'].'...</p>';
@@ -39,15 +39,36 @@
 						  </a><hr>';
 				}
 			}elseif(isset($_GET['cat']) && !isset($_GET['ver']) && !isset($_GET['s'])){
-				echo "Vista de categorias";
+				$id = $_GET['cat'];
+				$validar = Datos::valcat($id);
+				if($validar !== FALSE){
+					$respuesta = Datos::getcatbyid($id);
+					foreach ($respuesta as $item) {
+						echo ' <h2><a href="index.php?modulo=blog&ver='.$item[0][0].'">'.$item[0][1].'</a></h2>';
+						echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item[0][5].' </p>';
+						echo '
+							<a href="#">
+		                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item[0][6].'" alt="">
+		               		</a><br>
+							';
+						echo '<p>'.$item[0][2].'...</p>';
+						echo '<a class="btn btn-primary" href="index.php?modulo=blog&ver='.$item[0][0].'">
+								Leer más. <i class="fa fa-angle-right"></i>
+							  </a><hr>';
+					}
+				}else{
+					echo "La categoría no existe";
+				}
+
+				
 			}else{
 				$posts = Datos::getpost();
 				foreach($posts as $row => $item){
 					echo ' <h2><a href="index.php?modulo=blog&ver='.$item['id'].'">'.$item['titulo'].'</a></h2>';
 					echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item['fecha'].' </p>';
 					echo '
-						<a href="blog-post.html">
-	                    	<img class="img-responsive img-hover" src="img/medios/'.$item['imagen'].'" alt="">
+						<a href="#">
+	                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item['imagen'].'" alt="">
 	               		</a><br>
 						';
 					echo '<p>'.$item['extracto'].'...</p>';
