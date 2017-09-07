@@ -5,7 +5,7 @@
 			if(isset($_GET['ver'])){
 				$idpost = $_GET['ver'];
 				$post = Datos::getpostbyid($idpost);
-				echo '<li>'.$post['titulo'].'</li>';
+				echo '<li>'.$post['titulo'].' </li>';
 			}
 		}
 
@@ -25,36 +25,45 @@
 			}elseif(isset($_GET['s']) && !isset($_GET['ver']) && !isset($_GET['cat']) ){
 				$search = $_GET['s'];
 				$resultado = Datos::search($search);
-				foreach($resultado as $row => $item){
+				if($resultado != NULL){
+					foreach($resultado as $row => $item){
 					echo ' <h2><a href="index.php?modulo=blog&ver='.$item['id'].'">'.$item['titulo'].'</a></h2>';
 					echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item['fecha'].' </p>';
 					echo '
 						<a href="#">
-	                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item['imagen'].'" alt="">
-	               		</a><br>
-						';
+		                	<img class="img-responsive img-hover" data-src="img/medios/'.$item['imagen'].'" alt="">
+		               		</a><br>
+							';
 					echo '<p>'.$item['extracto'].'...</p>';
 					echo '<a class="btn btn-primary" href="index.php?modulo=blog&ver='.$item['id'].'">
 							Leer más. <i class="fa fa-angle-right"></i>
 						  </a><hr>';
+					}
+				}else{
+					echo "No hay resultados para esta búsqueda";
 				}
+
 			}elseif(isset($_GET['cat']) && !isset($_GET['ver']) && !isset($_GET['s'])){
 				$id = $_GET['cat'];
 				$validar = Datos::valcat($id);
 				if($validar !== FALSE){
 					$respuesta = Datos::getcatbyid($id);
-					foreach ($respuesta as $item) {
-						echo ' <h2><a href="index.php?modulo=blog&ver='.$item[0][0].'">'.$item[0][1].'</a></h2>';
-						echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item[0][5].' </p>';
-						echo '
-							<a href="#">
-		                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item[0][6].'" alt="">
-		               		</a><br>
-							';
-						echo '<p>'.$item[0][2].'...</p>';
-						echo '<a class="btn btn-primary" href="index.php?modulo=blog&ver='.$item[0][0].'">
-								Leer más. <i class="fa fa-angle-right"></i>
-							  </a><hr>';
+					if($respuesta != 0){
+						foreach ($respuesta as $item) {
+							echo ' <h2><a href="index.php?modulo=blog&ver='.$item[0][0].'">'.$item[0][1].'</a></h2>';
+							echo '<p><i class="fa fa-clock-o"></i> Publicado el: '.$item[0][5].' </p>';
+							echo '
+								<a href="#">
+			                    	<img class="img-responsive img-hover" data-src="img/medios/'.$item[0][6].'" alt="">
+			               		</a><br>
+								';
+							echo '<p>'.$item[0][2].'...</p>';
+							echo '<a class="btn btn-primary" href="index.php?modulo=blog&ver='.$item[0][0].'">
+									Leer más. <i class="fa fa-angle-right"></i>
+								  </a><hr>';
+						}
+					}else{
+						echo "La categoría no existe";
 					}
 				}else{
 					echo "La categoría no existe";

@@ -21,7 +21,7 @@
                         <a href="index.php?modulo=blog">Blog</a>
                     </li>
                     <li>
-                        <a href="index.php?modulo=wiki">Wiki</a>
+                        <a href="index.php?modulo=knowledgebase">Ayuda</a>
                     </li>
                     <li>
                         <button type="button" class="btn btn-success loginbtn" data-toggle="modal" data-target="#myModal">Login</button>
@@ -55,7 +55,7 @@
                         <a href="index.php?modulo=blog">Blog</a>
                     </li>
                     <li>
-                        <a href="index.php?modulo=wiki">Wiki</a>
+                        <a href="index.php?modulo=knowledgebase">Ayuda</a>
                     </li>
                     <li>
                         <button type="button" class="btn btn-success loginbtn" data-toggle="modal" data-target="#myModal">Login</button>

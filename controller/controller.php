@@ -47,6 +47,8 @@
 						echo "<h1>Licencia corrupta</h1>";
 						echo $GLOBALS["myserial"]."<br>";
 					}
+				}else if($respuesta==0){
+					echo "Código de error: 51";
 				}else{
 					echo "<h1> Error".$respuesta['estatus']."</h1>";
 					echo "<h1>".$respuesta['mensaje']."</h1>";
@@ -65,8 +67,14 @@
 		public function webservice(){
 			$url ="https://gubynetwork.com/serversoporte.php?token=".$GLOBALS["token"]."&dom=".$GLOBALS["dominio"];
 			$json = file_get_contents($url);
-			$respuesta = json_decode($json,true);
-			return $respuesta;
+			if($json===false){
+				echo "<h2>Error al intentar conectar con el servidor de licenciamiento</h2><br>";
+				return 0;
+			}else{
+				$respuesta = json_decode($json,true);
+				return $respuesta;	
+			}
+
 		}
 
 
