@@ -94,9 +94,7 @@
 			if(isset($_GET['ver'])){
 				$id=$_GET['ver'];
 				$categorias = Datos::getcatbypost($id);
-				#var_dump($categorias[1]["categoria"]);
 				foreach ($categorias as $key => $value) {
-					#var_dump($value["categoria"]);
 					echo '
 						<div class="col-lg-6">
 	                        <ul class="list-unstyled">
@@ -108,7 +106,6 @@
 				
 				}else{
 					$categorias = Datos::getcatall();
-					#var_dump($categorias);
 					foreach ($categorias as $posicion) {
 					echo '
 						<div class="col-lg-6">

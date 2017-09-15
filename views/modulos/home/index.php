@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mycss.css" rel="stylesheet">
     <link href="<?php echo $GLOBALS["templates"] ?>css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -45,7 +46,7 @@
     })
     </script>
     <script src="js/myjs.js"></script>
-    <script src="<?php echo $GLOBALS["templates"] ?>/js/js.js"></script>
+    <script src="<?php echo $GLOBALS["templates"] ?>js/js.js"></script>
 
 </body>
 

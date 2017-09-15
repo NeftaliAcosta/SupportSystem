@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mycss.css" rel="stylesheet">
     <link href="<?php echo $GLOBALS["templates"] ?>css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -48,9 +49,6 @@
             </div>
         </div>
         <!-- /.row -->
-
-        <div class="row">
-
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <?php 
@@ -58,7 +56,6 @@
                     $articulo ->obtenerpost();
                 ?>
             </div>
-
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4">
 

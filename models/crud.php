@@ -12,7 +12,9 @@
 				"ticketestado"=>"ticket_estados",
 				"ticketcanal"=>"ticket_canales",
 				"ticketdepartamentos"=>"ticket_departamentos",
-				"ticketprioridad"=>"ticket_prioridades"
+				"ticketprioridad"=>"ticket_prioridades",
+				"kbcategorigas" => "kb_categorias",
+				"kbarticulos"=>"kb_articulos"
 				);
 
 		
@@ -123,18 +125,126 @@
 		}
 
 
+
+		/*Base de conocimiento*/
+		function getfathercatmodel(){
+			$consulta=("select * from kb_categorias where padre IS NULL");
+			$respuesta = Datos::ejecutar($consulta, 2);
+			return $respuesta;
+		}
+
+		public function getsubcatmodel($idcat){
+			$stmt = Conexion::conectar()->prepare("select * from kb_categorias where padre =:id");
+			$stmt->bindParam(":id", $idcat, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetchAll();
+			return $respuesta;
+		}
+
+		public function getkbarticulobycat($categoria){
+			$stmt = Conexion::conectar()->prepare("select * from kb_articulos where categoria =:id and privado=0");
+			$stmt->bindParam(":id", $categoria, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetchAll();
+			return $respuesta;
+		}
+
+		public function getkbarticulobyid($id){
+			$stmt = Conexion::conectar()->prepare("select * from kb_articulos where id=:id");
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetchAll();
+			return $respuesta;	
+		}
+
+		public function getcatbyidkb($idcategoria){
+			$idcategoria = (int) $idcategoria;
+			if(is_int($idcategoria)){
+				$stmt = Conexion::conectar()->prepare("select * from kb_categorias where id=:id");
+				$stmt->bindParam(":id", $idcategoria, PDO::PARAM_INT);
+				$respuesta = $stmt->execute();
+				$respuesta = $stmt->fetchAll();
+
+				if($respuesta == NULL){
+					return 0;
+				}else{
+					return 1;
+				}
+			}else{
+				return 0;
+			}
+		}
+
+		public function getbreadcrumbscat($id){
+			$stmt = Conexion::conectar()->prepare('select id, nombre, padre from  '.self::$tabla['kbcategorigas'].' where id=:id');
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetch();
+			$id = $respuesta['id'];
+			do{
+				$stmt = Conexion::conectar()->prepare('select id, nombre, padre from '.self::$tabla['kbcategorigas'].' where id=:id');
+				$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+				$respuesta = $stmt->execute();
+				$respuesta = $stmt->fetch();
+				$menu [] = array("id"=>$respuesta['id'], "nombre"=>$respuesta['nombre'], "padre"=>$respuesta['padre']);
+				$id = $respuesta['padre'];
+			}while($respuesta['padre']!=NULL);
+			
+			return $menu;
+		}
+
+
+		public function getbreadcrumbsart($id){
+			$stmt = Conexion::conectar()->prepare('select id from  '.self::$tabla['kbarticulos'].' where id=:id');
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetch();
+			$id = $respuesta['id'];
+			do{
+				$stmt = Conexion::conectar()->prepare('select id, nombre, padre from '.self::$tabla['kbcategorigas'].' where id=:id');
+				$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+				$respuesta = $stmt->execute();
+				$respuesta = $stmt->fetch();
+				$menu [] = array("id"=>$respuesta['id'], "nombre"=>$respuesta['nombre'], "padre"=>$respuesta['padre']);
+				$id = $respuesta['padre'];
+			}while($respuesta['padre']!=NULL);
+			var_dump($menu);
+			return $menu;
+		}
+
+
+
+
+
+
+		public function validar($tabla, $id, $tipo){
+			if(is_int($id)){
+				$consulta ='select * from '.$tabla.' where id='.$id;
+				$respuesta = Datos::ejecutar($consulta, $tipo);
+				if($respuesta != NULL || $respuesta != 0){
+					return 0;
+				}else{
+					return 1;
+				}
+			}else{
+				return 1;
+			}
+		}
 		
 		
 		public function ejecutar($consulta, $retorno){
 			$retorno=$retorno;
 			$stmt = Conexion::conectar()->prepare($consulta);
-			$respuesta = $stmt->execute();
-			if($retorno==1){
-				$respuesta = $stmt->fetch();
-				return $respuesta;
-			}elseif($retorno==2){
-				$respuesta = $stmt->fetchAll();
-				return $respuesta;
+			if($stmt->execute()){
+				if($retorno==1){
+					$respuesta = $stmt->fetch();
+					return $respuesta;
+				}elseif($retorno==2){
+					$respuesta = $stmt->fetchAll();
+					return $respuesta;
+				}
+			}else{
+				return 0;
 			}
 		}
 

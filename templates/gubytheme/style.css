@@ -5,11 +5,12 @@ Versión 1.0
 URL: https://neftaliacosta.com
 Whatsapp: +521 2291391667;
 */
-
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 
 html,
 body {
+    font-family: 'Roboto', sans-serif;
     height: 100%;
 }
 

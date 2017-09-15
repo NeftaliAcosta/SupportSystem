@@ -4,8 +4,4 @@
     require_once "controller/controllers.php";
     $validacion = new MvcController();
     $validacion ->sistema();
-    /*
-	$mvc = new MvcController();
-	$mvc -> enlacesPaginasController();
-	*/
  ?>

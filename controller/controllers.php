@@ -3,4 +3,5 @@
 	require_once "controller.php";
 	require_once "usuario.php";
 	require_once "blogcontroller.php";
+	require_once "kbcontroller.php";
  ?>

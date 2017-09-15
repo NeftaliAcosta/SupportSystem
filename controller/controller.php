@@ -12,15 +12,35 @@
 	class MvcController{
 
 		public function sistema(){
-			if(isset($_COOKIE["dd"])) {
-				setlocale(LC_ALL,"es_MX");
-				$hoy = strftime("%Y-%m-%d");
-				$fvencimiento = $this->desencriptar($_COOKIE["dd"]);
-				$ldom = $this->desencriptar($_COOKIE["dom"]);
-				if($fvencimiento >= $hoy && $ldom==$GLOBALS["dominio"]){ 
-					$this->enlacesPaginasController();
-				}else{
-					$respuesta = $this->webservice();
+
+			$validar = Datos::conectar();
+			if($validar != false){
+				if(isset($_COOKIE["dd"])) {
+					setlocale(LC_ALL,"es_MX");
+					$hoy = strftime("%Y-%m-%d");
+					$fvencimiento = $this->desencriptar($_COOKIE["dd"]);
+					$ldom = $this->desencriptar($_COOKIE["dom"]);
+					if($fvencimiento >= $hoy && $ldom==$GLOBALS["dominio"]){ 
+						$this->enlacesPaginasController();
+					}else{
+						$respuesta = $this->webservice();
+						if($respuesta["estatus"]==1){
+							if($respuesta["servicio"]==$GLOBALS["myserial"]){
+								$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
+								$this->enlacesPaginasController();
+							}else{
+								$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
+								echo "<h1>Licencia corrupta</h1>";
+								echo $GLOBALS["myserial"]."<br>";
+							}
+						}else{
+							$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
+							echo "<h1> Error".$respuesta['estatus']."</h1>";
+							echo "<h1>".$respuesta['mensaje']."</h1>";
+						}
+					}
+			}else{
+				$respuesta = $this->webservice();
 					if($respuesta["estatus"]==1){
 						if($respuesta["servicio"]==$GLOBALS["myserial"]){
 							$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
@@ -30,28 +50,12 @@
 							echo "<h1>Licencia corrupta</h1>";
 							echo $GLOBALS["myserial"]."<br>";
 						}
+					}else if($respuesta==0){
+						echo "Código de error: 51";
 					}else{
-						$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
 						echo "<h1> Error".$respuesta['estatus']."</h1>";
 						echo "<h1>".$respuesta['mensaje']."</h1>";
 					}
-				}
-			}else{
-				$respuesta = $this->webservice();
-				if($respuesta["estatus"]==1){
-					if($respuesta["servicio"]==$GLOBALS["myserial"]){
-						$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
-						$this->enlacesPaginasController();
-					}else{
-						$this->crearcookies($respuesta['vencimiento'], $respuesta['dominio']);
-						echo "<h1>Licencia corrupta</h1>";
-						echo $GLOBALS["myserial"]."<br>";
-					}
-				}else if($respuesta==0){
-					echo "Código de error: 51";
-				}else{
-					echo "<h1> Error".$respuesta['estatus']."</h1>";
-					echo "<h1>".$respuesta['mensaje']."</h1>";
 				}
 			}
 		}
@@ -65,7 +69,7 @@
 		}
 
 		public function webservice(){
-			$url ="https://gubynetwork.com/serversoporte.php?token=".$GLOBALS["token"]."&dom=".$GLOBALS["dominio"];
+			$url = "https://gubynetwork.com/serversoporte.php?token=".$GLOBALS["token"]."&dom=".$GLOBALS["dominio"];
 			$json = file_get_contents($url);
 			if($json===false){
 				echo "<h2>Error al intentar conectar con el servidor de licenciamiento</h2><br>";
@@ -104,6 +108,16 @@
 		}
 		function desencriptar($texto){
 			$key='syst3msuPPort2017gUby'; 
+			$decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($texto), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+			    return $decrypted;
+		}
+		function encriptarurl($texto){
+	    $key='URL';
+		$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $texto, MCRYPT_MODE_CBC, md5(md5($key))));
+		return $encrypted;
+		}
+		function desencriptarrul($texto){
+			$key='URL'; 
 			$decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($texto), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
 			    return $decrypted;
 		}

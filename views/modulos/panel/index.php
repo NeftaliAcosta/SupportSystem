@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mycss.css" rel="stylesheet">
     <link href="<?php echo $GLOBALS["templates"] ?>css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
