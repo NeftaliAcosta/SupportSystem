@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2017 a las 01:03:35
+-- Tiempo de generación: 21-09-2017 a las 22:59:23
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -82,14 +82,19 @@ INSERT INTO `blog_post` (`id`, `titulo`, `extracto`, `contenido`, `categorias`, 
 
 CREATE TABLE `config` (
   `id` int(1) DEFAULT '1',
-  `nSistema` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `dSistema` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `key` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `token` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `dd` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `dominio` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `stylesheet` varchar(5000) COLLATE utf8_spanish_ci DEFAULT NULL
+  `conf_ac` int(1) DEFAULT NULL,
+  `conf_tt` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `conf_kk` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `conf_dm` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `conf_dd` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Esta tabla almacena la configuración del sistema';
+
+--
+-- Volcado de datos para la tabla `config`
+--
+
+INSERT INTO `config` (`id`, `conf_ac`, `conf_tt`, `conf_kk`, `conf_dm`, `conf_dd`) VALUES
+(1, 1, 'Hnuzr/hRWaETKi3C/c6PAbcVa/yQSytUWEEEdtJyiY4=', 'lfbrkASPNI56ZGDynhZc6i0zuNAIa7wKV7w6/+8WDfveRxLsM8nv2HKN6yIibACuhqMqaTgUKZ57YSQnXyeyl+/1r62BLN4RqHCfuBbStBVxgJmS4wJIH/pVaNcH/yuRx5VfjX/DeRSaQlK2A/nitA7tnU3S7Gbf8D/2KOqIAKo=', 'bD9OFFlCxH6M9/E78ZPKMIFv6rQwlJ4Q4fNUZ6Wkhr0=', 'vcddwJHfHTUjbnzs7eHp7Hty7ALQwbntGgmdqUb2oHo=');
 
 -- --------------------------------------------------------
 
@@ -299,15 +304,16 @@ CREATE TABLE `usuarios` (
   `apellido` varchar(40) COLLATE utf8_spanish_ci NOT NULL DEFAULT '0',
   `telefono` varchar(10) COLLATE utf8_spanish_ci NOT NULL DEFAULT '0',
   `departamento` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `nivel` int(11) NOT NULL DEFAULT '1'
+  `nivel` int(11) NOT NULL DEFAULT '1',
+  `descripcion` varchar(400) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Almacena los usuarios del sistema';
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `email`, `password`, `nombre`, `apellido`, `telefono`, `departamento`, `nivel`) VALUES
-(1, 'micorreo@correo.com', '123', 'Ikere Eliel', 'Marciano', '2291006049', '', 1);
+INSERT INTO `usuarios` (`id`, `email`, `password`, `nombre`, `apellido`, `telefono`, `departamento`, `nivel`, `descripcion`) VALUES
+(1, 'micorreo@correo.com', '123', 'Ikere Eliel', 'Marciano', '2291006049', '', 1, NULL);
 
 --
 -- Índices para tablas volcadas

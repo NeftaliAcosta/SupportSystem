@@ -66,6 +66,22 @@
 							<article>
 							'.$articulo[0]['contenido'].'
 							</article>
+							<div class="autor-container">
+								<hr>
+								<div class="row">
+									<div class="col-sm-2">
+										<img src="img/medios/neftali.png" class="img-responsive img-circle autor" >
+									</div>
+
+									<div class="col-sm-10">
+									<p><b>Autor: </b> Neftalí Acosta</p>
+
+										<p>With a bit of extra markup, its possible to add any kind of HTML content like headings, paragraphs, or buttons into thumbnails. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+										</p>
+									</div>
+								</div>
+									
+							</div>
 
 						';
 					}
@@ -111,15 +127,23 @@
 			}
 			echo $texto;
 		}
+
+
 		public function breadcrumbsbyart($id){
 			$items = Datos::getbreadcrumbsart($id);
+
 			$a=0; 
-			$texto ="";
-			foreach ($items as $key => $value) {
-				$texto = '<li><a href=index.php?modulo=knowledgebase&subcat='.$value['id'].'>'.$value['nombre'].'</a></li>'.$texto;
-				++$a;
+			$texto =""; 
+			if ($items != NULL ){
+				foreach ($items as $key => $value) {
+					$texto = '<li><a href=index.php?modulo=knowledgebase&subcat='.$value['id'].'>'.$value['nombre'].'</a></li>'.$texto;
+					++$a;
+				}
 			}
-			echo $texto;
+			$nombre = Datos::obtenertituloart($id);
+			$titulo = '<li class="active">'.$nombre.'</li>';
+			echo $texto.$titulo;
+			
 		}
 	}
  ?>

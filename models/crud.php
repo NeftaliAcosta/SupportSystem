@@ -195,22 +195,47 @@
 
 
 		public function getbreadcrumbsart($id){
-			$stmt = Conexion::conectar()->prepare('select id from  '.self::$tabla['kbarticulos'].' where id=:id');
+			$categoriaarticulo =  Datos::obtenercatart($id);
+			$validar = Datos::obtenercategorias($categoriaarticulo);
+			if($validar[0]["padre"] != NULL){
+				echo "Hay más categorías hijas";
+			}else{
+				return $validar;
+			}
+		}
+
+		public function obtenercategorias($id){
+			$stmt = Conexion::conectar()->prepare('select id, nombre, padre from '.self::$tabla['kbcategorigas'].' where id=:id');
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$respuesta = $stmt->execute();
 			$respuesta = $stmt->fetch();
-			$id = $respuesta['id'];
-			do{
-				$stmt = Conexion::conectar()->prepare('select id, nombre, padre from '.self::$tabla['kbcategorigas'].' where id=:id');
-				$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-				$respuesta = $stmt->execute();
-				$respuesta = $stmt->fetch();
-				$menu [] = array("id"=>$respuesta['id'], "nombre"=>$respuesta['nombre'], "padre"=>$respuesta['padre']);
-				$id = $respuesta['padre'];
-			}while($respuesta['padre']!=NULL);
-			var_dump($menu);
+
+			$menu [] = array("id"=>$respuesta['id'], "nombre"=>$respuesta['nombre'], "padre"=>$respuesta['padre']);
+			$id = $respuesta['padre'];
+
 			return $menu;
 		}
+
+		public function obtenercatart($id){
+			$stmt = Conexion::conectar()->prepare('select nombre, categoria from '.self::$tabla['kbarticulos'].' where id=:id');
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetch();
+
+			$idcategoria = (int) $respuesta["categoria"];
+			return $idcategoria;
+		}
+
+		public function obtenertituloart($id){
+			$stmt = Conexion::conectar()->prepare('select nombre from '.self::$tabla['kbarticulos'].' where id=:id');
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$respuesta = $stmt->execute();
+			$respuesta = $stmt->fetch();
+
+			$titulo = $respuesta["nombre"];
+			return $titulo;
+		}
+
 
 
 

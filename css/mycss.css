@@ -6,20 +6,31 @@ URL: https://neftaliacosta.com
 Whatsapp: +521 2291391667;
 */
 
-@import url('https://fonts.googleapis.com/css?family=Pontano+Sans');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 html,
 body {
     height: 100%;
 }
 
 body {
-    font-family: 'Pontano Sans', sans-serif;
-    font-size: 17px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
     color: #454C57;
     
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.autor-container {
+    padding-top: 80px;
+}
+
+.autor{
+    max-width: 50%;
+    margin-left: 50px;
+}
+.autor-container p{
+    font-size: 15px!important;
+}
 .img-portfolio {
     margin-bottom: 30px;
 }
